@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <title>Proyecto 01</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/style.css" rel="stylesheet">
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            color: #eee;
+        }
+
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            cursor: pointer; /* Cambiar el cursor a una mano al pasar sobre el encabezado */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Estilo del enlace */
+        h1 a {
+            text-decoration: none; /* Sin subrayado */
+            color: inherit; /* Heredar el color del texto del elemento padre */
+        }
+    </style>
+</head>
+<body>
+<header onclick="goToHomePage()"> <!-- Agregar el evento onclick -->
+    <h1><a href="../index.html">La Biblioteca</a></h1> <!-- Agregar el enlace directamente al título -->
+</header>
+
+<main>
+    <div class="book-details">
+        <h2>Juego de tronos</h2>
+        <p>George R. R. Martin </p>
+        <p>
+           Tras el largo verano, el invierno se acerca a los Siete Reinos. Lord Eddars Stark, señor de Invernalia, deja sus dominios para unirse a la corte del rey Robert Baratheon el Usurpador, hombre díscolo y otrora guerrero audaz cuyas mayores aficiones son comer, beber y engendrar bastardos. Eddard Stark desempeñará el cargo de Mano del Rey e intentará desentrañar una maraña de intrigas que pondrá en peligro su vida... y la de los suyos. En un mundo cuyas estaciones duran décadas y en el que retazos de una magia inmemorial y olvidada surgen en los rincones más sombrios y maravillosos, la traición y la lealtad, la compasión y la sed de venganza, el amor y el poder hacen del juego de tronos una poderosa trampa que atrapa en sus fauces a los personajes... y al lector.       
+        </p>
+    </div>
+</main>
+
+<!-- JavaScript para redirigir a la página principal -->
+<script>
+    function goToHomePage() {
+        window.location.href = "../index.html"; // Corregir la ruta según la ubicación de index.html
+    }
+</script>
+
+</body>
+</html>
 

@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <title>La Biblioteca</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            color: #eee;
+        }
+
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            cursor: pointer; /* Cambiar el cursor a una mano al pasar sobre el encabezado */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .book {
+            display: block;
+            margin-bottom: 20px;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .book h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        .book p {
+            margin-top: 5px;
+            color: #ccc;
+        }
+
+        .book a {
+            text-decoration: none;
+            color: #4CAF50;
+            transition: color 0.3s ease;
+        }
+
+        .book a:hover {
+            color: #2E8B57;
+        }
+
+        #search-bar {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        #search-bar h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        #search-bar form {
+            display: flex;
+            align-items: center;
+        }
+
+        #search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            background-color: #555;
+            color: #eee;
+        }
+
+        #search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #search-bar button:hover {
+            background-color: #2E8B57;
+        }
+    </style>
+</head>
+<body>
+    <header onclick="goToHomePage()"> <!-- Agregar el evento onclick -->
+        <h1>La Biblioteca</h1>
+    </header>
+
+    <!-- Barra de búsqueda -->
+    <div id="search-bar">
+        <h2>Buscar en la Biblioteca</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" name="query" placeholder="Buscar libro...">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Botón para obtener una recomendación aleatoria -->
+    <button onclick="getRandomRecommendation()">Obtener Recomendación Aleatoria</button>
+
+    <main id="books-container">
+        <h2>Libros Disponibles</h2>
+        <div class="book">
+            <h3><a href="books/book1.html" onclick="registerClick('Juego de Tronos')">'Juego de Tronos'</a></h3>
+            <p>Autor: George R. R. Martin</p>
+        </div>
+        <div class="book">
+            <h3><a href="books/book2.html" onclick="registerClick('El camino de los reyes')">'El camino de los reyes'</a></h3>
+            <p>Autor: Brandon Sanderson</p>
+        </div>
+         <div class="book">
+            <h3><a href="books/book3.html" onclick="registerClick('Choque de reyes')">'Choque de reyes'</a></h3>
+            <p>Autor: George R. R. Martin</p>
+        </div>
+        <div class="book">
+            <h3><a href="books/book4.html" onclick="registerClick('Palabras radiantes')">'Palabras radiantes'</a></h3>
+            <p>Autor: Brandon Sanderson</p>
+        </div>
+        <div class="book">
+            <h3><a href="books/book5.html" onclick="registerClick('Tormenta de espadas')">'Tormenta de espadas'</a></h3>
+            <p>Autor: George R. R. Martin</p>
+        </div>
+        <div class="book">
+            <h3><a href="books/book6.html" onclick="registerClick('Danzante del filo')">'Danzante del filo'</a></h3>
+            <p>Autor: Brandon Sanderson</p>
+        </div>
+         <div class="book">
+            <h3><a href="books/book7.html" onclick="registerClick('Festín de cuervos')">'Festín de cuervos'</a></h3>
+            <p>Autor: George R. R. Martin</p>
+        </div>
+        <div class="book">
+            <h3><a href="books/book8.html" onclick="registerClick('Juramentada')">'Juramentada'</a></h3>
+            <p>Autor: Brandon Sanderson</p>
+        </div>
+    </main>
+
+    <!-- Mostrar el número de sesión -->
+    <div id="session-info"></div>
+
+    <!-- JavaScript para manejar la funcionalidad de recomendación y mostrar el número de sesión -->
+    <script>
+        // Función para redirigir a la página principal al hacer clic en el encabezado
+        function goToHomePage() {
+            window.location.href = "index.html"; // Reemplaza "index.html" con la ruta de tu página principal
+        }
+
+        // Función para registrar los libros en los que el usuario ha hecho clic
+        function registerClick(bookTitle) {
+            var clickedBooks = localStorage.getItem("clickedBooks");
+            if (!clickedBooks) {
+                clickedBooks = [];
+            } else {
+                clickedBooks = JSON.parse(clickedBooks);
+            }
+            if (!clickedBooks.includes(bookTitle)) {
+                clickedBooks.push(bookTitle);
+                localStorage.setItem("clickedBooks", JSON.stringify(clickedBooks));
+            }
+        }
+
+        // Función para obtener una recomendación aleatoria
+        function getRandomRecommendation() {
+            var books = [];
+            var bookLinks = document.querySelectorAll('.book a');
+            bookLinks.forEach(function(link) {
+                var href = link.getAttribute('href');
+                var fileName = href.split('/').pop();
+                books.push(fileName);
+            });
+
+            var clickedBooks = localStorage.getItem("clickedBooks");
+            if (clickedBooks) {
+                clickedBooks = JSON.parse(clickedBooks);
+                var availableBooks = books.filter(function(book) {
+                    return !clickedBooks.includes(book);
+                });
+                if (availableBooks.length > 0) {
+                    var randomIndex = Math.floor(Math.random() * availableBooks.length);
+                    var randomBook = availableBooks[randomIndex];
+                    // Redirigir al usuario a la página del libro recomendado
+                    window.location.href = "books/" + randomBook;
+                } else {
+                    alert("Ya has explorado todos los libros disponibles.");
+                }
+            } else {
+                alert("Aún no has hecho clic en ningún libro para generar recomendaciones.");
+            }
+        }
+
+        // Función para manejar la búsqueda de libros
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que se envíe el formulario
+
+            // Captura la consulta de búsqueda
+            var query = document.getElementById('search-input').value.toLowerCase();
+
+            // Obtiene todos los libros disponibles
+            var books = document.querySelectorAll('.book');
+
+            // Filtra los libros según la consulta de búsqueda
+            books.forEach(function(book) {
+                var title = book.querySelector('h3').innerText.toLowerCase();
+                if (title.includes(query)) {
+                    book.style.display = 'block'; // Muestra el libro si coincide con la búsqueda
+                } else {
+                    book.style.display = 'none'; // Oculta el libro si no coincide con la búsqueda
+                }
+            });
+        });
+
+        // Función para generar un identificador único de sesión
+        function generateSessionId() {
+            // Utiliza la fecha actual y un número aleatorio para generar un ID único
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        // Función para establecer la expiración de la sesión después de 10 segundos
+        function setSessionExpiration() {
+            var sessionExpiration = Date.now() + 10000; // 10 segundos
+            localStorage.setItem("sessionExpiration", sessionExpiration);
+        }
+
+        // Función para obtener el tiempo de expiración de la sesión
+        function getSessionExpiration() {
+            return parseInt(localStorage.getItem("sessionExpiration"));
+        }
+
+        // Función para verificar si la sesión ha expirado y limpiar los datos si es necesario
+        function checkSessionExpiration() {
+            var sessionExpiration = getSessionExpiration();
+            if (sessionExpiration && Date.now() > sessionExpiration) {
+                localStorage.removeItem("clickedBooks"); // Elimina los libros en los que hizo clic
+                localStorage.removeItem("sessionExpiration"); // Elimina el tiempo de expiración de la sesión
+            }
+        }
+
+        // Verifica si ya existe un ID de sesión en el localStorage
+        var sessionId = localStorage.getItem("sessionId");
+        if (!sessionId) {
+            // Si no hay un ID de sesión, genera uno nuevo y guárdalo en el localStorage
+            sessionId = generateSessionId();
+            localStorage.setItem("sessionId", sessionId);
+            setSessionExpiration(); // Establece el tiempo de expiración de la sesión
+        }
+
+        // Mostrar el número de sesión en el HTML
+        var sessionInfo = document.getElementById("session-info");
+        sessionInfo.textContent = "Número de sesión: " + sessionId;
+
+        // Verificar y limpiar los datos de la sesión si ha expirado
+        checkSessionExpiration();
+    </script>
+</body>
+</html>
 
